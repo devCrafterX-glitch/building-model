@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Properties | Luxury Real Estate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #1a2a3a;
+            --secondary-color: #d4af37;
+            --accent-color: #5d8aa8;
+            --light-color: #f8f9fa;
+            --dark-color: #121a21;
+            --text-color: #333;
+            --text-light: #6c757d;
+            --white: #fff;
+            --black: #000;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: #c9a227;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            text-align: center;
+            position: relative;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .section-title.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 20px auto 30px;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.6s ease 0.3s;
+        }
+
+        .section-title.animate::after {
+            transform: scaleX(1);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 60px;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease 0.2s;
+        }
+
+        .section-subtitle.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(26, 42, 58, 0.9);
+            box-shadow: var(--box-shadow);
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        #navbar.scrolled {
+            background-color: rgba(26, 42, 58, 0.98);
+            padding: 10px 0;
+        }
+
+        #navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 15px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            position: relative;
+            color: var(--white);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links .btn {
+            margin-left: 20px;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+        }
+
+        .nav-links .btn:hover {
+            background-color: var(--white);
+            color: var(--dark-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(transparent, var(--white));
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            opacity: 0.9;
+        }
+
+        .hero .btn {
+            animation: fadeIn 1.5s ease;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            font-weight: 700;
+            padding: 15px 40px;
+            font-size: 1rem;
+        }
+
+        .hero .btn:hover {
+            background-color: var(--white);
+        }
+
+        /* Floating animation for hero button */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .hero .btn {
+            animation: fadeIn 1.5s ease, float 3s ease-in-out infinite 1.5s;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            background-color: var(--light-color);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .project-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            background-color: var(--white);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .project-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) !important;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-info {
+            padding: 25px;
+            background-color: var(--white);
+        }
+
+        .project-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 1.4rem;
+        }
+
+        .project-info p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .project-info .btn {
+            background-color: transparent;
+            color: var(--secondary-color);
+            padding: 8px 0;
+            border-radius: 0;
+            box-shadow: none;
+            position: relative;
+            font-weight: 600;
+        }
+
+        .project-info .btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .project-info .btn:hover {
+            transform: none;
+            background-color: transparent;
+            color: var(--primary-color);
+        }
+
+        .project-info .btn:hover::after {
+            width: 100%;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .about-text h3 {
+            font-size: 1.6rem;
+            margin: 25px 0 15px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .about-text h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+
+        .about-text ul {
+            margin-top: 20px;
+        }
+
+        .about-text li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .about-text li:hover {
+            transform: translateX(5px);
+        }
+
+        .about-text i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.6s ease;
+        }
+
+        .about-image.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-image img {
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: -20px;
+            bottom: -20px;
+            border: 3px solid var(--secondary-color);
+            border-radius: 10px;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .about-image:hover::before {
+            top: 15px;
+            left: 15px;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(rgba(26, 42, 58, 0.9), rgba(26, 42, 58, 0.9)), 
+                        url('https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .stat-item {
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .stat-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px) !important;
+            background-color: rgba(212, 175, 55, 0.2);
+            border-color: var(--secondary-color);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .stat-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--light-color);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
+        }
+
+        .info-item.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .info-item:hover {
+            transform: translateX(5px) !important;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-top: 5px;
+            min-width: 30px;
+        }
+
+        .contact-form, .order-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .contact-form.animate, .order-form.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--light-color);
+            border: none;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 1em;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            color: var(--text-light);
+            transition: var(--transition);
+            pointer-events: none;
+        }
+
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 10px;
+            font-size: 0.8rem;
+            background-color: var(--white);
+            padding: 0 5px;
+            color: var(--secondary-color);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* Order Section */
+        .order-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .testimonials-section .section-title {
+            color: var(--white);
+        }
+
+        .testimonials-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .testimonial-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .testimonial-card:hover {
+            background-color: rgba(212, 175, 55, 0.2);
+            transform: translateY(-5px) !important;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--secondary-color);
+            opacity: 0.3;
+            position: absolute;
+        }
+
+        .testimonial-text::before {
+            top: -20px;
+            left: -10px;
+        }
+
+        .testimonial-text::after {
+            bottom: -40px;
+            right: -10px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 100px 0 0;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(var(--white), transparent);
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+
+        .footer-col p {
+            margin-bottom: 20px;
+            color: #bdc3c7;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+            color: var(--dark-color);
+        }
+
+        .footer-col ul li {
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li:hover {
+            transform: translateX(5px);
+        }
+
+        .footer-col ul li i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+            width: 20px;
+            text-align: center;
+        }
+
+        .footer-col a {
+            color: #bdc3c7;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-col a:hover {
+            color: var(--secondary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--white);
+            transform: translateY(-5px);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Pulse animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--dark-color);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 100px 40px 40px;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                transition: var(--transition);
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .nav-links a {
+                color: var(--white);
+                font-size: 1.2rem;
+            }
+            
+            .nav-links .btn {
+                margin-left: 0;
+                margin-top: 20px;
+                background-color: var(--secondary-color);
+                color: var(--dark-color);
+                width: 100%;
+                text-align: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form, .order-form {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero .btn {
+                padding: 12px 30px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .contact-form, .order-form {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <a href="#home" class="logo">Prime<span>Properties</span></a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#order" class="btn">Order Now</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Discover Your Dream Home</h1>
+                <p>Luxury living redefined with premium properties across prime locations worldwide</p>
+                <a href="#projects" class="btn">Explore Projects <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects-section">
+        <div class="container">
+            <h2 class="section-title">Our Featured Projects</h2>
+            <p class="section-subtitle">Explore our premium real estate developments designed for the most discerning clients</p>
+            
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Luxury Villa">
+                    <div class="project-info">
+                        <h3>Oceanview Villas</h3>
+                        <p>Luxury beachfront villas with private pools and panoramic ocean views.</p>
+                        <a href="#order" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Modern Apartment">
+                    <div class="project-info">
+                        <h3>Urban Heights</h3>
+                        <p>Contemporary apartments in the heart of the city with smart home features.</p>
+                        <a href="#order" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Gated Community">
+                    <div class="project-info">
+                        <h3>Green Valley Estates</h3>
+                        <p>Gated community with landscaped gardens and premium amenities.</p>
+                        <a href="#order" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Penthouse Interior">
+                    <div class="project-info">
+                        <h3>Skyline Penthouses</h3>
+                        <p>Exclusive penthouses with rooftop terraces and city skyline views.</p>
+                        <a href="#order" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Suburban Homes">
+                    <div class="project-info">
+                        <h3>Maplewood Homes</h3>
+                        <p>Spacious family homes in a peaceful suburban neighborhood.</p>
+                        <a href="#order" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Commercial Building">
+                    <div class="project-info">
+                        <h3>Platinum Towers</h3>
+                        <p>State-of-the-art commercial spaces with premium business facilities.</p>
+                        <a href="#order" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section stats-section">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="25">0</div>
+                    <div class="stat-text">Years of Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-text">Completed Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="500">0</div>
+                    <div class="stat-text">Happy Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="15">0</div>
+                    <div class="stat-text">Awards Won</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Our Company</h2>
+            <p class="section-subtitle">Building dreams since 1995 with unparalleled craftsmanship and vision</p>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Story</h3>
+                    <p>Founded in 1995, Prime Properties has grown from a small local real estate agency to one of the most trusted names in luxury property development. With over 25 years of experience, we've delivered more than 50 successful projects across the country, each reflecting our commitment to excellence.</p>
+                    
+                    <h3>Our Mission</h3>
+                    <p>To create exceptional living spaces that combine innovative design, quality craftsmanship, and sustainable practices, while delivering unparalleled value to our clients. We believe in building not just houses, but homes that inspire and communities that thrive.</p>
+                    
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Residential & Commercial Property Development</li>
+                        <li><i class="fas fa-check"></i> Property Management & Investment Consulting</li>
+                        <li><i class="fas fa-check"></i> Custom Interior Design & Architectural Services</li>
+                        <li><i class="fas fa-check"></i> Comprehensive After-Sales Support</li>
+                        <li><i class="fas fa-check"></i> Sustainable & Eco-Friendly Building Solutions</li>
+                    </ul>
+                </div>
+                
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Our Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section testimonials-section">
+        <div class="container">
+            <h2 class="section-title">Client Testimonials</h2>
+            <p class="section-subtitle">What our clients say about their experience with us</p>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Prime Properties transformed my vision into reality. Their attention to detail and commitment to quality is unmatched in the industry.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Robert Johnson">
+                        </div>
+                        <div class="author-info">
+                            <h4>Robert Johnson</h4>
+                            <p>Oceanview Villa Owner</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Working with Prime Properties was a seamless experience from start to finish. Their team's professionalism and expertise made the entire process enjoyable.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Williams">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Williams</h4>
+                            <p>Urban Heights Resident</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        The investment advice we received from Prime Properties helped us make the right decisions. Their market knowledge is exceptional.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Michael Chen">
+                        </div>
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>Commercial Investor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-subtitle">Get in touch with our team for personalized assistance</p>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Our Headquarters</h4>
+                            <p>123 Prime Avenue, Business District, City</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@primeproperties.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Working Hours</h4>
+                            <p>Mon-Fri: 9AM - 6PM<br>Sat: 10AM - 4PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="contact-name" placeholder=" " required>
+                        <label for="contact-name">Your Name</label>
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="contact-email" placeholder=" " required>
+                        <label for="contact-email">Your Email</label>
+                        <span class="error-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="contact-message" placeholder=" " required></textarea>
+                        <label for="contact-message">Your Message</label>
+                        <span class="error-message"></span>
+                    </div>
+                    <button type="submit" class="btn">Send Message <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="order" class="section">
+        <div class="container">
+            <h2 class="section-title">Inquire About a Property</h2>
+            <p class="section-subtitle">Let us help you find your dream home or investment property</p>
+            
+            <form id="order-form" class="order-form">
+                <div class="form-group">
+                    <input type="text" id="order-name" placeholder=" " required>
+                    <label for="order-name">Your Full Name</label>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="order-email" placeholder=" " required>
+                    <label for="order-email">Your Email</label>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="order-phone" placeholder=" " required>
+                    <label for="order-phone">Phone Number</label>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <select id="order-project" required>
+                        <option value="" disabled selected> </option>
+                        <option value="Oceanview Villas">Oceanview Villas</option>
+                        <option value="Urban Heights">Urban Heights</option>
+                        <option value="Green Valley Estates">Green Valley Estates</option>
+                        <option value="Skyline Penthouses">Skyline Penthouses</option>
+                        <option value="Maplewood Homes">Maplewood Homes</option>
+                        <option value="Platinum Towers">Platinum Towers</option>
+                    </select>
+                    <label for="order-project">Select a Project</label>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <textarea id="order-message" placeholder=" "></textarea>
+                    <label for="order-message">Your Requirements & Preferences</label>
+                    <span class="error-message"></span>
+                </div>
+                <button type="submit" class="btn">Submit Inquiry <i class="fas fa-arrow-right"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Prime Properties</h3>
+                    <p>Your trusted partner in luxury real estate development and investment for over 25 years.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Property Development</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Investment Consulting</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Interior Design</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Property Management</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Sustainable Building</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Prime Avenue, Business District</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@primeproperties.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Prime Properties. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> by Prime Properties Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#home" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Navigation Toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('navbar');
+                const backToTop = document.querySelector('.back-to-top');
+                
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                // Show back to top button
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('active');
+                } else {
+                    backToTop.classList.remove('active');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Animate elements when they come into view
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.section-title, .section-subtitle, .project-card, .about-image, .stat-item, .testimonial-card, .info-item, .contact-form, .order-form');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.classList.add('animate');
+                    }
+                });
+            };
+            
+            // Initialize animations
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on page load
+            
+            // Animate stats counter
+            const statItems = document.querySelectorAll('.stat-item');
+            
+            const animateStats = () => {
+                statItems.forEach(item => {
+                    const statPosition = item.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (statPosition < screenPosition && !item.classList.contains('animated')) {
+                        item.classList.add('animated');
+                        
+                        const statNumber = item.querySelector('.stat-number');
+                        const target = parseInt(statNumber.getAttribute('data-count'));
+                        const duration = 2000; // Animation duration in ms
+                        const step = target / (duration / 16); // 16ms for 60fps
+                        let current = 0;
+                        
+                        const updateCounter = () => {
+                            current += step;
+                            if (current < target) {
+                                statNumber.textContent = Math.floor(current);
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                statNumber.textContent = target;
+                            }
+                        };
+                        
+                        updateCounter();
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateStats);
+            animateStats(); // Run once on page load
+            
+            // Form Validation for Contact Form
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    let isValid = true;
+                    
+                    // Validate Name
+                    const nameInput = document.getElementById('contact-name');
+                    const nameError = nameInput.nextElementSibling.nextElementSibling;
+                    if (nameInput.value.trim() === '') {
+                        nameError.textContent = 'Name is required';
+                        nameError.style.display = 'block';
+                        isValid = false;
+                    } else {
+                        nameError.style.display = 'none';
+                    }
+                    
+                    // Validate Email
+                    const emailInput = document.getElementById('contact-email');
+                    const emailError = emailInput.nextElementSibling.nextElementSibling;
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    
+                    if (emailInput.value.trim() === '') {
+                        emailError.textContent = 'Email is required';
+                        emailError.style.display = 'block';
+                        isValid = false;
+                    } else if (!emailRegex.test(emailInput.value)) {
+                        emailError.textContent = 'Please enter a valid email';
+                        emailError.style.display = 'block';
+                        isValid = false;
+                    } else {
+                        emailError.style.display = 'none';
+                    }
+                    
+                    // Validate Message
+                    const messageInput = document.getElementById('contact-message');
+                    const messageError = messageInput.nextElementSibling.nextElementSibling;
+                    if (messageInput.value.trim() === '') {
+                        messageError.textContent = 'Message is required';
+                        messageError.style.display = 'block';
+                        isValid = false;
+                    } else {
+                        messageError.style.display = 'none';
+                    }
+                    
+                    // If form is valid, show success message
+                    if (isValid) {
+                        // Add animation to button
+                        const submitBtn = this.querySelector('button[type="submit"]');
+                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+                        submitBtn.style.backgroundColor = '#2ecc71';
+                        
+                        // Reset form after delay
+                        setTimeout(() => {
+                            this.reset();
+                            submitBtn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
+                            submitBtn.style.backgroundColor = '';
+                        }, 3000);
+                    }
+                });
+            }
+            
+            // Form Validation for Order Form
+            const orderForm = document.getElementById('order-form');
+            if (orderForm) {
+                orderForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    let isValid = true;
+                    
+                    // Validate Name
+                    const orderNameInput = document.getElementById('order-name');
+                    const orderNameError = orderNameInput.nextElementSibling.nextElementSibling;
+                    if (orderNameInput.value.trim() === '') {
+                        orderNameError.textContent = 'Name is required';
+                        orderNameError.style.display = 'block';
+                        isValid = false;
+                    } else {
+                        orderNameError.style.display = 'none';
+                    }
+                    
+                    // Validate Email
+                    const orderEmailInput = document.getElementById('order-email');
+                    const orderEmailError = orderEmailInput.nextElementSibling.nextElementSibling;
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    
+                    if (orderEmailInput.value.trim() === '') {
+                        orderEmailError.textContent = 'Email is required';
+                        orderEmailError.style.display = 'block';
+                        isValid = false;
+                    } else if (!emailRegex.test(orderEmailInput.value)) {
+                        orderEmailError.textContent = 'Please enter a valid email';
+                        orderEmailError.style.display = 'block';
+                        isValid = false;
+                    } else {
+                        orderEmailError.style.display = 'none';
+                    }
+                    
+                    // Validate Phone
+                    const orderPhoneInput = document.getElementById('order-phone');
+                    const orderPhoneError = orderPhoneInput.nextElementSibling.nextElementSibling;
+                    const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+                    
+                    if (orderPhoneInput.value.trim() === '') {
+                        orderPhoneError.textContent = 'Phone number is required';
+                        orderPhoneError.style.display = 'block';
+                        isValid = false;
+                    } else if (!phoneRegex.test(orderPhoneInput.value)) {
+                        orderPhoneError.textContent = 'Please enter a valid phone number';
+                        orderPhoneError.style.display = 'block';
+                        isValid = false;
+                    } else {
+                        orderPhoneError.style.display = 'none';
+                    }
+                    
+                    // Validate Project Selection
+                    const orderProjectInput = document.getElementById('order-project');
+                    const orderProjectError = orderProjectInput.nextElementSibling.nextElementSibling;
+                    if (orderProjectInput.value === null || orderProjectInput.value === '') {
+                        orderProjectError.textContent = 'Please select a project';
+                        orderProjectError.style.display = 'block';
+                        isValid = false;
+                    } else {
+                        orderProjectError.style.display = 'none';
+                    }
+                    
+                    // If form is valid, show success message
+                    if (isValid) {
+                        // Add animation to button
+                        const submitBtn = this.querySelector('button[type="submit"]');
+                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Inquiry Submitted!';
+                        submitBtn.style.backgroundColor = '#2ecc71';
+                        
+                        // Reset form after delay
+                        setTimeout(() => {
+                            this.reset();
+                            submitBtn.innerHTML = 'Submit Inquiry <i class="fas fa-arrow-right"></i>';
+                            submitBtn.style.backgroundColor = '';
+                        }, 3000);
+                    }
+                });
+            }
+            
+            // Add floating label functionality
+            document.querySelectorAll('.form-group input, .form-group textarea, .form-group select').forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.querySelector('label').classList.add('active');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (this.value === '') {
+                        this.parentElement.querySelector('label').classList.remove('active');
+                    }
+                });
+                
+                // Check on page load if there's already content
+                if (input.value !== '') {
+                    input.parentElement.querySelector('label').classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
